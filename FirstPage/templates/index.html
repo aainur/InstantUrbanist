@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/Cf83wK3qzF1Lr7fIiA7bG0rMITkcraigMUCHfN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.5.2/css/bootstrap.min.css" integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqFjcJ6pajs/rfdfs3SO+kD4Ck5BdPtF+to8xMp9MvcWg" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<title>15-Minute City Platform</title>
+<style>
+body {
+font-family: 'Roboto', Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+.header {
+background-image: url('https://zlavomat.sgcdn.cz/images/t/1280x640c/54/45/5445884-8d5468.webp');
+background-size: cover;
+background-position: center;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items:center;
+color: white;
+text-align: center;
+padding: 0 10%;
+position: relative;
+}
+
+.header::before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+position: relative;
+z-index: 1;
+}
+
+.header h1 {
+font-size: 64px;
+font-weight: 700;
+}
+
+.header p {
+font-weight: 300;
+font-size: 28px;
+max-width: 800px;
+margin: 0 auto;
+}
+
+.description {
+padding: 80px 10%;
+text-align: center;
+}
+
+.description h2 {
+font-size: 48px;
+font-weight: 500;
+margin-bottom: 20px;
+}
+
+.description p {
+font-weight: 300;
+font-size: 18px;
+max-width: 800px;
+margin: 0 auto;
+}
+
+.explore-button {
+font-size: 24px;
+font-weight: 500;
+background: #2980b9;
+color: white;
+border: none;
+border-radius: 3px;
+padding: 15px 30px;
+margin-top: 20px;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+.explore-button:hover {
+background: #3498db;
+}
+
+@media (max-width: 768px) {
+.header {
+height: 70vh;
+}
+}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="header-content">
+<h1>15-Minute City</h1>
+<p>Discover a better way to live, work, and play in your city</p>
+</div>
+</div>
+<div class="description">
+<h2>Welcome to the 15-Minute City Platform</h2>
+<p>Our platform showcases the 15-minute city concept to create sustainable and thriving urban environments. Access nearby amenities, reduce car dependency, and improve your quality of life with our interactive map.</p>
+
+<!-- Place this form inside index.html -->
+<form action="/map" method="post">
+<input class="explore-button" type="submit" value="Explore">
+</form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/Cf83r27Ezfov1CEYLONfalsGtxzPTAG8m4Vp/" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.5.2/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/Cf83r27Ezfov1CEYLONfalsGtxzPTAG8m4Vp/" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Map</title>
+<!-- Leaflet CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<!-- Leaflet Routing Machine CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+body, html {
+height: 100%;
+margin: 0;
+}
+#map {
+height: 100vh;
+width: 100%;
+}
+.controls {
+position: absolute;
+z-index: 1000;
+background: white;
+padding: 20px;
+left: 20px;
+top: 20px;
+width: 200px;
+}
+.controls h3 {
+font-size: 20px;
+margin-top: 0;
+margin-bottom: 20px;
+}
+.controls input[type=checkbox] {
+display: block;
+margin-bottom: 5px;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="controls">
+<h3>Filter</h3>
+<input type="checkbox" id="essentialFacilities" checked> Essential facilities
+<input type="checkbox" id="transportation" checked> Transportation
+<input type="checkbox" id="publicSpaces" checked> Public spaces
+<input type="checkbox" id="residentialAreas" checked> Residential areas
+</div>
+
+<script>
+// Set the coordinates for Košice, Slovakia
+const kosiceCoordinates = [48.7171, 21.2491];
+
+// Initialize your map
+var map = L.map("map").setView([48.7164, 21.2611], 23); // Košice's latitude and longitude
+
+// Add a base tile layer
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors"
+}).addTo(map);
+
+// Add GeoJSON data layers
+//var addressesLayer = L.geoJSON({{ addresses_geojson | tojson }});
+var addressesLayer = L.geoJSON(addresses_geojson, {
+       onEachFeature: function (feature, layer) {
+           layer.bindPopup(
+               "<b>Street:</b> " + feature.properties.street +
+               "<br><b>House Number:</b> " + feature.properties.house_number +
+               "<br><b>Building Type:</b> " + feature.properties.building_type
+           );
+       }
+   });
+
+var antikRoutesLayer = L.geoJSON({{ antik_routes_geojson | tojson }});
+var servicesCoordinatesLayer = L.geoJSON({{ services_coordinates_geojson | tojson }});
+
+// Add the GeoJSON layers to the map
+addressesLayer.addTo(map);
+antikRoutesLayer.addTo(map);
+servicesCoordinatesLayer.addTo(map);
+
+// Add a marker and popup example
+const marker = L.marker(kosiceCoordinates).addTo(map);
+marker.bindPopup('<b>Hello Košice!</b><br>We are in Košice, Slovakia.').openPopup();
+
+// Add your GeoJSON data here and add it to the map using L.geoJson
+// The dummy data replaces the actual data until it is available
+const essentialFacilitiesData = {};
+const transportationData = {};
+const publicSpacesData = {};
+const residentialAreasData = {};
+
+const essentialFacilities = L.geoJson(essentialFacilitiesData, {}).addTo(map);
+const transportation = L.geoJson(transportationData, { }).addTo(map);
+const publicSpaces = L.geoJson(publicSpacesData, {}).addTo(map);
+const residentialAreas = L.geoJson(residentialAreasData, {}).addTo(map);
+
+// Register click event for checkboxes
+$("#essentialFacilities").click(function() {
+toggleLayer(this.checked, essentialFacilities);
+});
+
+$("#transportation").click(function() {
+toggleLayer(this.checked, transportation);
+});
+
+$("#publicSpaces").click(function() {
+toggleLayer(this.checked, publicSpaces);
+});
+
+$("#residentialAreas").click(function() {
+toggleLayer(this.checked, residentialAreas);
+});
+
+function toggleLayer(checked, layer) {
+if (checked) {
+layer.addTo(map);
+} else {
+map.removeLayer(layer);
+}
+}
+
+</script>
+</body>
+</html>
