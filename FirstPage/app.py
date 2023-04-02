@@ -1,8 +1,6 @@
 import math
 from pymongo import MongoClient
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from sklearn.cluster import KMeans
-import numpy as np
 app = Flask(__name__)
 #connecting to the dataset
 mongo_uri = "mongodb+srv://amanainur7:InstantUrbanist2023@instanturbanist.o5ojcgj.mongodb.net/test"
@@ -166,18 +164,18 @@ print(f"Distance between the points: {distance} km")
 
 
 
-# Assume that you have an array of [x, y] coordinates for each point
-# which can be generated from your existing data like below
-coords = np.array([[address["x"], address["y"]] for address in addresses])
-
-# Determine the best k value or test different k values
-best_k = 5
-
-# Fit the model to your coordinates data
-kmeans = KMeans(n_clusters=best_k, random_state=0).fit(coords)
-
-# To access the k centroids (service points) that minimize the distance to all points
-centroids = kmeans.cluster_centers_
+# # Assume that you have an array of [x, y] coordinates for each point
+# # which can be generated from your existing data like below
+# coords = np.array([[address["x"], address["y"]] for address in addresses])
+#
+# # Determine the best k value or test different k values
+# best_k = 5
+#
+# # Fit the model to your coordinates data
+# kmeans = KMeans(n_clusters=best_k, random_state=0).fit(coords)
+#
+# # To access the k centroids (service points) that minimize the distance to all points
+# centroids = kmeans.cluster_centers_
 
 
 @app.route('/')
